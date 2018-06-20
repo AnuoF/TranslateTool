@@ -209,7 +209,7 @@ TXT文档的写比较简单，代码如下所示：
 	# 写TXT文档
 	def write_txt(path,content):
 	    '''实现TXT文档的写方法'''
-	    with open(path,'w') as f:
+	    with open(path,'a+') as f:
 	        f.write(content)
 
 #### 写Word文档 ####

@@ -10,7 +10,7 @@
  
 @Software:   NaN
  
-@File    :   Tools.py
+@File    :   Py4Js.py
  
 @Time    :   June 20,2018
  
@@ -18,7 +18,7 @@
  
 '''
 
-import execjs  
+import execjs  # 安装指令：pip install PyExecJS
   
 class Py4Js():  
       
