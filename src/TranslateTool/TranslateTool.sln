@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "TranslateTool", "TranslateTool\TranslateTool.pyproj", "{C8BD1066-8F3D-42E0-9CC2-40853F4770E9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8BD1066-8F3D-42E0-9CC2-40853F4770E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8BD1066-8F3D-42E0-9CC2-40853F4770E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7B4F213A-CCBB-4999-8529-34DC5A058F60}
+	EndGlobalSection
+EndGlobal

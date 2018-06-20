@@ -7,19 +7,6 @@ import json
 import requests
 from Py4Js import *
 
-# 读取TXT文档
-def read_txt(path):
-    '''实现TXT文档的读取，一次将内容全部取出'''
-    content = ''
-    with open(path) as f:
-        content = f.read()
-    return content
-
-# 写TXT文档
-def write_txt(path,content):
-    '''实现TXT文档的写方法'''
-    with open(path,'w') as f:
-        f.write(content)
 
 # 百度翻译方法
 def baidu_translate(content,type=1):
@@ -111,8 +98,8 @@ def google_translate(content):
     return ret
 
 
-path = "d:\\test.txt"
-msg = read_txt(path)
-msg = google_translate(msg)
-path1 = "d:\\test1.txt"
-write_txt(path1,msg)
+#path = "d:\\test.txt"
+#msg = read_txt(path)
+#msg = google_translate(msg)
+#path1 = "d:\\test1.txt"
+#write_txt(path1,msg)

@@ -1,0 +1,6 @@
+? Once the JST connector is in place, gently rotate the main board so you can give it POE power via the RJ45 connector and let the pingStation power up.
+? Wait 60 seconds for the firmware to detect the loopback and reset the pingStation to DHCP mode.
+? Remove power.
+? Remove the JST loopback connector and attach it back onto the inside of the front plate like it was originally.
+? Reapply power and verify with the DHCP server that it has issued an address to this pingStation.
+? Reassemble the pingStation in the reverse order.
