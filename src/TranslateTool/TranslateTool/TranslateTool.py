@@ -2,13 +2,13 @@
 # -*- encoding: utf-8 -*-
  
 '''
-@Author  :   Alen
+@Author  :   Allen
  
 @License :   (C) Copyright 2018, Allen's Studio
  
 @Contact :   188512936@qq.com
  
-@Software:   NaN
+@Software:   VS2017
  
 @File    :   TranslateTool.py
  
@@ -24,7 +24,6 @@ from ReadWrite import *
 import os
 import Translate
 
-# https://blog.csdn.net/woshisangsang/article/details/75221723
 
 def run():
     
@@ -101,12 +100,6 @@ def get_path(*paths):
 def print_write_msg(msg):
     '''打印消息并写日志'''
 
-    # 添加时间信息
-    time_str = datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d %H:%M:%S')
-    content = '[' + time_str + '] -> ' + msg + '\n'
-
-    # 打印消息
-    print(content)
     # 写入日志文件
     logger = Logger()
     logger.write(content)

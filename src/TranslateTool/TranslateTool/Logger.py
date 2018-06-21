@@ -2,13 +2,13 @@
 # -*- encoding: utf-8 -*-
 
 '''
-@Author  :   Alen
+@Author  :   Allen
  
 @License :   (C) Copyright 2018, Allen's Studio
  
 @Contact :   188512936@qq.com
  
-@Software:   NaN
+@Software:   VS2017
  
 @File    :   log.py
  
@@ -49,6 +49,13 @@ class Logger(object):
     def write(self,content):
         '''写日志'''
         
+         # 添加时间信息
+        time_str = datetime.datetime.strftime(datetime.datetime.now(),'%Y-%m-%d %H:%M:%S')
+        content = '[' + time_str + '] -> ' + content + '\n'
+
+        # 打印消息
+        print(content)
+        # 写文件
         with open(self.log_path,'a+') as f:
             f.write(content)
     

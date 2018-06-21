@@ -1,0 +1,10 @@
+? Once the JST connector is in place, gently rotate the main board so you can give it POE power via the RJ45 connector and let the pingStation power up.
+译：？一旦JST连接器就位，轻轻旋转主板，这样您就可以通过RJ45连接器提供POE电源，并让PunStand电源启动。
+? Wait 60 seconds for the firmware to detect the loopback and reset the pingStation to DHCP mode.
+译：？等待60秒，固件检测回送并将PANSITE重置为DHCP模式。
+? Remove power.
+译：？去掉电源。
+? Remove the JST loopback connector and attach it back onto the inside of the front plate like it was originally.
+译：？拆下JST环回连接器，并将它重新连接回前板的内部，就像原来一样。
+? Reapply power and verify with the DHCP server that it has issued an address to this pingStation.
+译：？重新应用电源并用DHCP服务器验证它已经向这个PunStand发出了一个地址。
