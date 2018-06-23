@@ -21,7 +21,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Translate_Docx.py">
+    <Compile Include="T_Docx.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Logger.py">
@@ -30,22 +30,18 @@
     <Compile Include="Main.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Translate_Pdf.py">
+    <Compile Include="T_Pdf_pdfminer.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Py4Js.py" />
-    <Compile Include="ReadWrite.py">
+    <Compile Include="TranslateFunc.py" />
+    <Compile Include="T_Base.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Translate_Func.py" />
-    <Compile Include="setting.py">
+    <Compile Include="T_Pdf_PyPDF2.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TranslateBase.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="TranslateTool.py" />
-    <Compile Include="Translate_Txt.py">
+    <Compile Include="T_Txt.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

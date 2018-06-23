@@ -21,9 +21,10 @@
 
 import os
 from Logger import *
-from Translate_Txt import TxtTranslate
-from Translate_Pdf import PdfTranslate
-from Translate_Docx import DocxTranslate
+from T_Txt import TxtTranslate
+from T_Pdf_pdfminer import PdfTranslate
+from T_Docx import DocxTranslate
+from T_Pdf_PyPDF2 import PdfTranslagePyPDF2
 
 
 def run():
@@ -47,7 +48,6 @@ def run():
         write_log('开始翻译' + doc)
         # 翻译单个文档
         translate_doc(doc)
-        write_log(doc + '翻译完成')
 
     write_log('翻译完成，请查看Doc_Out文件夹下面的文档')
 
@@ -75,7 +75,7 @@ def get_translate(doc,path):
     elif extend_str == '.doc' or extend_str == '.docx':
         tranlate = DocxTranslate(doc,path)
     elif extend_str == '.pdf':
-        tranlate = PdfTranslate(doc,path)
+        tranlate = PdfTranslagePyPDF2(doc,path)
     else:
         tranlate = None
 

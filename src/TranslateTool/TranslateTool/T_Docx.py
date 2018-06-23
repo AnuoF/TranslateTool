@@ -10,7 +10,7 @@
  
 @Software:   VS2017
  
-@File    :   Translate_Docx.py
+@File    :   T_Docx.py
  
 @Time    :   June 21,2018
  
@@ -19,10 +19,11 @@
 '''
 
 
-from TranslateBase import Translate
-from Translate_Func import *
+from T_Base import Translate
+from TranslateFunc import *
 import os
 import docx    # 安装指令：pip install python-docx
+from Logger import *
 
 
 class DocxTranslate(Translate):
@@ -56,15 +57,16 @@ class DocxTranslate(Translate):
 
         # 保存到本地文件
         new_doc.save(self.new_fullPath)
+        Logger().write(self.fileName + '翻译完成，新文档：' + self.new_fullPath)
 
 
     def prepare(self):
         '''准备：生成的文件名和路径'''
 
         # 查看要生成的文件名是否已存在，若存在，则在文件名中 + 1
-        path = self.get_path('Doc_Out',self.fileName)
+        file_name = os.path.splitext(self.fileName)[0] + os.path.splitext(self.fileName)[1]
+        path = self.get_path('Doc_Out',file_name)
         i = 1
-        file_name = ''
 
         while os.path.exists(path):   # 循环，生成新的文件名
             file_name = os.path.splitext(self.fileName)[0] + str(i) + os.path.splitext(self.fileName)[1]

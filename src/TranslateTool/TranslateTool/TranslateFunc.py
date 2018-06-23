@@ -25,9 +25,31 @@ import requests
 from Py4Js import *
 
 
+#class TranslateFunc(object):
+
+#    def __new__(cls,*args,**kwargs):
+#        '''实现单例模式'''
+
+#        if not hasattr(TranslateFunc,'_instance'):
+#            TranslateFunc._instance = object.__new__(cls)
+#        return TranslateFunc._instance
+
+
+#    def get_translate_func(self,type):
+#        '''根据类型选择翻译接口'''
+
+#        if type == 'baidu':
+#            return self.baidu_translate
+#        elif type == 'google':
+#            return self.google_translate
+#        else:
+#            return self.youdao_translate
+
+
 # 百度翻译方法
 def baidu_translate(content,type=1):
     '''实现百度翻译'''
+
     baidu_url = 'http://fanyi.baidu.com/basetrans'
     data = {}
 
@@ -57,7 +79,32 @@ def baidu_translate(content,type=1):
 # 有道翻译方法
 def youdao_translate(content):
     '''实现有道翻译的接口'''
-    youdao_url = 'http://fanyi.youdao.com/translate?smartresult=dict&smartresult=rule'
+
+    url = 'http://fanyi.youdao.com/translate?smartresult=dict&smartresult=rule&sessionFrom=https://www.baidu.com/link'
+    data = {
+        'from':'AUTO',
+        'to':'AUTO',
+        'smartresult':'dict',
+        'client':'fanyideskweb',
+        'salt':'1500092479607',
+        'sign':'d9f9a3aa0a7b34241b3fe30505e5d436',
+        'doctype':'json',
+        'version':'2.1',
+        'keyfrom':'fanyi.web',
+        'action':'FY_BY_CL1CKBUTTON',
+        'typoResult':'true'}
+
+    data['i'] = content
+
+    data = urllib.parse.urlencode(data).encode('utf-8')
+    wy = urllib.request.urlopen(url,data)
+    html = wy.read().decode('utf-8')
+
+    ta = json.loads(html)
+    return ta['translateResult'][0][0]['tgt']
+
+    # 下面的代码不能使用
+    youdao_url = 'http://fanyi.youdao.com/translate'  
     data = {}
     
     data['i']= content
@@ -66,7 +113,7 @@ def youdao_translate(content):
     data['smartresult'] = 'dict'
     data['client'] = 'fanyideskweb'
     data['salt'] = '1525141473246'
-    data['sign'] = '47ee728a4465ef98ac06510bf67f3023'
+    data['sign'] = 'd9f9a3aa0a7b34241b3fe30505e5d436'
     data['doctype'] = 'json'
     data['version'] = '2.1'
     data['keyfrom'] = 'fanyi.web'
@@ -88,15 +135,17 @@ def youdao_translate(content):
 
     return ret
 
+
 # 谷歌翻译方法
 def google_translate(content):
     '''实现谷歌的翻译'''
+
     js = Py4Js()
     tk = js.getTk(content)
 
     if len(content) > 4891:      
         print("翻译的长度超过限制！！！")      
-        return    
+        return ''   
   
     param = {'tk': tk, 'q': content}  
   
@@ -113,10 +162,3 @@ def google_translate(content):
             ret += trans[i][0]
 
     return ret
-
-
-#path = "d:\\test.txt"
-#msg = read_txt(path)
-#msg = google_translate(msg)
-#path1 = "d:\\test1.txt"
-#write_txt(path1,msg)
