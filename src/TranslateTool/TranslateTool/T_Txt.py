@@ -44,15 +44,21 @@ class TxtTranslate(Translate):
         line = f.readline()
         temp_line = ''   # 拼接行
         
+        i = 0
         while line:
             # 如果当前读取的行以回车结尾，那就拿这一段进行翻译，并写入翻译后的文件
             # 如果当前读取的行不是以回车结尾，则继续拼接文本
             if line.endswith('\n'):
                 temp_line += line
 
-                trans = google_translate(temp_line)
-                self.write(temp_line)
-                self.write(trans + '\n')
+                temp_line = temp_line.strip()
+                if temp_line:
+                    ret = translate_func(temp_line)
+                    trans = ret if ret else '翻译失败'
+                    self.write(temp_line)
+                    self.write(trans + '\n')
+                    i += 1
+                    print(i,end=' ',flush=True)
 
                 temp_line = ''
             else:  # 实际上readline()就是读取一段文本，而不是表面上的一行

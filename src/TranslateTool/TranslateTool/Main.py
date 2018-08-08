@@ -75,7 +75,8 @@ def get_translate(doc,path):
     elif extend_str == '.doc' or extend_str == '.docx':
         tranlate = DocxTranslate(doc,path)
     elif extend_str == '.pdf':
-        tranlate = PdfTranslagePyPDF2(doc,path)
+        #tranlate = PdfTranslagePyPDF2(doc,path)
+        tranlate = PdfTranslate(doc,path)
     else:
         tranlate = None
 

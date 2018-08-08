@@ -56,7 +56,7 @@ class Logger(object):
         # 打印消息
         print(content)
         # 写文件
-        with open(self.log_path,'a+') as f:
+        with open(self.log_path,'a+',encoding='utf-8') as f:
             f.write(content)
     
 

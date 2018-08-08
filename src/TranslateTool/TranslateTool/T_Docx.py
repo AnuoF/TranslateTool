@@ -47,16 +47,23 @@ class DocxTranslate(Translate):
         # 创建内存中的word文档对象
         new_doc = docx.Document()
 
+        i = 0
         # 遍历每一段文本
         for para in doc.paragraphs:
             # 翻译
-            trans = baidu_translate(para.text)
-            # 写入新文件
-            new_doc.add_paragraph(para.text)
-            new_doc.add_paragraph(trans)
+            content = para.text.strip()    # 去掉多余空格
 
-        # 保存到本地文件
-        new_doc.save(self.new_fullPath)
+            if content != '':
+                ret = translate_func(content)
+                trans = ret if ret else '翻译失败'
+                # 写入新文件
+                new_doc.add_paragraph(content)
+                new_doc.add_paragraph(trans)
+                i += 1
+                print(i,end=' ',flush=True)
+                # 保存到本地文件
+                new_doc.save(self.new_fullPath)
+        
         Logger().write(self.fileName + '翻译完成，新文档：' + self.new_fullPath)
 
 

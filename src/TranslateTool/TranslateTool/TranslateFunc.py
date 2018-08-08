@@ -23,27 +23,7 @@ import urllib.parse
 import json
 import requests
 from Py4Js import *
-
-
-#class TranslateFunc(object):
-
-#    def __new__(cls,*args,**kwargs):
-#        '''实现单例模式'''
-
-#        if not hasattr(TranslateFunc,'_instance'):
-#            TranslateFunc._instance = object.__new__(cls)
-#        return TranslateFunc._instance
-
-
-#    def get_translate_func(self,type):
-#        '''根据类型选择翻译接口'''
-
-#        if type == 'baidu':
-#            return self.baidu_translate
-#        elif type == 'google':
-#            return self.google_translate
-#        else:
-#            return self.youdao_translate
+from Logger import *
 
 
 # 百度翻译方法
@@ -73,7 +53,10 @@ def baidu_translate(content,type=1):
     for i in range(len(trans)):
         ret += trans[i]['dst'] + '\n'
 
-    return ret
+    if ret:
+        return (True,ret)
+    else:
+        return (False,ret)
 
 
 # 有道翻译方法
@@ -101,9 +84,14 @@ def youdao_translate(content):
     html = wy.read().decode('utf-8')
 
     ta = json.loads(html)
-    return ta['translateResult'][0][0]['tgt']
+    ret = ta['translateResult'][0][0]['tgt']
 
-    # 下面的代码不能使用
+    if ret:
+        return (True,ret)
+    else:
+        return (False,ret)
+
+    # 下面的代码不能使用!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     youdao_url = 'http://fanyi.youdao.com/translate'  
     data = {}
     
@@ -161,4 +149,33 @@ def google_translate(content):
         if line != None:
             ret += trans[i][0]
 
-    return ret
+    if ret:
+        return (True,ret)
+    else:
+        return (False,ret)
+
+
+def translate_func(content):
+    '''集成百度、谷歌、有道多合一的翻译'''
+
+    funcs = [baidu_translate,google_translate,youdao_translate]
+    count = 0
+
+    # 循环调用百度、谷歌、有道API，其中如果谁调成功就返回，或者大于等于9次没有成功也返回。
+    while True:
+        for i in range(len(funcs)):
+            ret = (False,'')
+            try:
+                ret = funcs[i](content)
+            except:
+                Logger().write("调用 %s 方法出现异常。" % funcs[i].__name__)
+
+            if ret[0] == True:
+                return ret[1]
+            else:
+                count += 1
+                if count >= 9:
+                    Logger().write("以下内容尝试9次仍翻译失败，内容【 %s 】" % content)
+                    return ''
+                else:
+                    continue

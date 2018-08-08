@@ -44,6 +44,7 @@ class PdfTranslagePyPDF2(Translate):
         f = open(self.fullPath,'rb')
         pdf = PdfFileReader(f)
 
+        index = 0
         for i in range(0,pdf.getNumPages()):
             extractedText = pdf.getPage(i).extractText()
             content = extractedText.split('\n')  
@@ -53,9 +54,14 @@ class PdfTranslagePyPDF2(Translate):
             content_list = self.enter_symbol(content)
 
             for line in content_list:
-                trans = baidu_translate(line)
-                self.write(line + '\n')
-                self.write(trans)
+                line = line.strip()
+                if line:
+                    ret = translate_func(line)
+                    trans = ret if ret else '翻译失败'
+                    self.write(line + '\n')
+                    self.write(trans)
+                    index += 1
+                    print(index,end=' ',flush=True)
 
         f.close()
         Logger().write(self.fileName + '翻译完成，新文档：' + self.new_fullPath)
@@ -122,6 +128,7 @@ class PdfTranslagePyPDF2(Translate):
     def write(self,content):
         '''写入文件'''
 
+        #content = str(content.encode('utf-8'))
         # ‘a+’表示追加文本
-        with open(self.new_fullPath,'a+') as f:
+        with open(self.new_fullPath,'a+',encoding='utf-8') as f:
             f.write(content)

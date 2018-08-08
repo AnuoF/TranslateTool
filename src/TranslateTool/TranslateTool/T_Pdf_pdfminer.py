@@ -23,6 +23,7 @@ from T_Base import Translate
 from Logger import *
 from TranslateFunc import *
 import os
+import time
 
 # 安装指令：pip install pdfminer3k
 from pdfminer.pdfparser import PDFParser,PDFDocument
@@ -74,6 +75,7 @@ class PdfTranslate(Translate):
             # 创建一个PDF页面解释器对象
             interpreter = PDFPageInterpreter(rsrcmgr,device)
 
+            i = 0
             # 循环遍历列表，每次处理一页的内容
             for page in doc_pdf.get_pages():
                 # 使用页面解释器来读取
@@ -85,10 +87,18 @@ class PdfTranslate(Translate):
                 for out in layout:
                     # 判断是否含有get_text()方法，图片之类的就没有
                     if isinstance(out,LTTextBoxHorizontal):
-                        content = out.get_text()
-                        trans = baidu_translate(content)
-                        self.write(content)
-                        self.write(trans)
+                        content = out.get_text().strip()
+                        if content:
+                            ret = translate_func(content)
+                            trans = ret if ret else '翻译失败'
+
+                            self.write(content)
+                            self.write(trans)
+                            i += 1
+                            print(i,end=' ',flush=True)
+
+                time.sleep(2);
+
             Logger().write(self.fileName + '翻译完成，新文档：' + self.new_fullPath)
 
 
@@ -123,6 +133,7 @@ class PdfTranslate(Translate):
     def write(self,content):
         '''写入文件'''
 
-        # ‘a+’表示追加文本
-        with open(self.new_fullPath,'a+') as f:
+        # https://www.cnblogs.com/themost/p/6603409.html
+        # ‘a+’表示追加文本，txt文本打开默认是gbk编码，需要设置成utf-8
+        with open(self.new_fullPath,'a+',encoding='utf-8') as f:
             f.write(content)
