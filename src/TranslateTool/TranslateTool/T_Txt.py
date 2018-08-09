@@ -40,7 +40,7 @@ class TxtTranslate(Translate):
 
         '''流程：start->提取->翻译->写入->finish'''
 
-        f = open(self.path)
+        f = open(self.path,encoding='utf-8')
         line = f.readline()
         temp_line = ''   # 拼接行
         
@@ -102,5 +102,5 @@ class TxtTranslate(Translate):
         '''写入文件'''
 
         # ‘a+’表示追加文本
-        with open(self.new_path,'a+') as f:
+        with open(self.new_path,'a+',encoding='utf-8') as f:
             f.write(content)
