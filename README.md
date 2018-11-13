@@ -7,15 +7,14 @@
 ### 选择Python ###
 为什么选择Python：  
 1）因为人生苦短；  
-2）因为人生苦短；  
-3）因为人生苦短。
+2）因为刚好在学习AI；  
 
 好了，废话就这么多，进入主题。  
 ### 功能需求 ###
 
 · 用户可选择谷歌、百度和有道翻译，后期可考虑添加其他的接口；  
 · 实现PDF、Word、TXT等多种类型的文档翻译，程序自动识别文档类型；  
-· 翻译后生成的新文档格式可以为PDF、Word、TXT格式;  
+· 翻译后生成的新文档格式可以为PDF、Word、TXT格式（未实现）;  
 · 有日志记录文件。
 
 ## 关键方法 ##
@@ -341,7 +340,7 @@ Word文档的写就是用上面所属的python-docx库实现，在上面读取Wo
 翻译前后对比**（PDF）**
 ![](https://i.imgur.com/6IWdcBq.png)
 
-嗯！假装“托腮”沉思，效果还是基本及格滴，哈哈哈。以后还要啥自行车啊~~
+嗯！大概就是这样的。
 
 ## 分享 ##
 本项目的地址：[https://github.com/wangxijin/TranslateTool](https://github.com/wangxijin/TranslateTool)  
