@@ -343,7 +343,7 @@ Word文档的写就是用上面所属的python-docx库实现，在上面读取Wo
 嗯！大概就是这样的。
 
 ## 分享 ##
-本项目的地址：[https://github.com/wangxijin/TranslateTool](https://github.com/wangxijin/TranslateTool)  
+本项目的地址：[https://github.com/AnuoF/TranslateTool](https://github.com/AnuoF/TranslateTool)  
 如有问题，可以与我交流。  
 
 Allen   
