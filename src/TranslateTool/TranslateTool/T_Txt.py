@@ -41,7 +41,7 @@ class TxtTranslate(Translate):
         '''流程：start->提取->翻译->写入->finish'''
 
         f = open(self.path,encoding='utf-8')
-        line = f.readline()
+        line = f.readline()   #'utf-8' codec can't decode byte 0xa1 in position 795: invalid start byte
         temp_line = ''   # 拼接行
         
         i = 0

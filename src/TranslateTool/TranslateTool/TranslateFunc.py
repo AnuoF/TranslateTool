@@ -21,7 +21,7 @@
 import urllib.request
 import urllib.parse
 import json
-import requests
+import requests   # pip intasll requests
 from Py4Js import *
 from Logger import *
 
@@ -29,26 +29,30 @@ from Logger import *
 # 百度翻译方法
 def baidu_translate(content,type=1):
     '''实现百度翻译'''
+    # 需要 sign 和 Cookie，而且query/sign/Cookie三者之间有关联关系。 此问题暂未解决  2019/3/4 
 
-    baidu_url = 'http://fanyi.baidu.com/basetrans'
+    baidu_url = "https://fanyi.baidu.com/v2transapi"
     data = {}
-
-    data['from'] = 'en'
-    data['to'] = 'zh'
-    data['query'] = content
-    data['transtype'] = 'translang'
+    data['from'] = 'zh'
+    data['to'] = 'en'
+    data['query'] = "妈妈"    # 奶奶
+    data['transtype'] = 'translang'     # enter/realtime/translang : 经测试，此处填什么内容无影响
     data['simple_means_flag'] = '3'
-    data['sign'] = '94582.365127'
-    data['token'] = 'ec980ef090b173ebdff2eea5ffd9a778'
+    data['sign'] = '64344.268393'  # 422672.167969
+    data['token'] = 'b08c1ff5373f47e4a5b62c59d38d4f63'
     data = urllib.parse.urlencode(data).encode('utf-8')
 
-    headers = {"User-Agent":"Mozilla/5.0 (Linux; Android 5.1.1; Nexus 6 Build/LYZ28E) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Mobile Safari/537.36"}
-    baidu_re = urllib.request.Request(baidu_url, data, headers)
+    headers = {}
+    headers['User-Agent'] = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36"
+    #headers['Referer'] = 'https://fanyi.baidu.com/translate?aldtype=16047&query=&keyfrom=baidu&smartresult=dict&lang=auto2zh'   # 可以不需要
+    headers['Cookie'] ='BAIDUID=09546BF566035455B10181ED1091C5B1:FG=1; BIDUPSID=09546BF566035455B10181ED1091C5B1; PSTM=1551086333; BDUSS=1mMmtwVjc1RnBtR05mMUljOC13amFabjBZRn5HY2JKRUJnWkV1bTBMVWdoWjFjQVFBQUFBJCQAAAAAAAAAAAEAAAAACYVHUmF5X0EzNGVuAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACD4dVwg-HVcYW; MCITY=-75%3A; pgv_pvi=4361364480; BDRCVFR[feWj1Vr5u3D]=I67x6TjHwwYf0; delPer=0; PSINO=3; BDORZ=B490B5EBF6F3CD402E515D22BCDA1598; pgv_si=s991542272; locale=zh; REALTIME_TRANS_SWITCH=1; FANYI_WORD_SWITCH=1; HISTORY_SWITCH=1; SOUND_SPD_SWITCH=1; SOUND_PREFER_SWITCH=1; H_PS_PSSID=26525_1440_25809_21122_20697_28585_26350_28603_28415; Hm_lvt_64ecd82404c51e03dc91cb9e8c025574=1551663602,1551670352; Hm_lpvt_64ecd82404c51e03dc91cb9e8c025574=1551670352; from_lang_often=%5B%7B%22value%22%3A%22en%22%2C%22text%22%3A%22%u82F1%u8BED%22%7D%2C%7B%22value%22%3A%22zh%22%2C%22text%22%3A%22%u4E2D%u6587%22%7D%5D; to_lang_often=%5B%7B%22value%22%3A%22zh%22%2C%22text%22%3A%22%u4E2D%u6587%22%7D%2C%7B%22value%22%3A%22en%22%2C%22text%22%3A%22%u82F1%u8BED%22%7D%5D'
+
+    baidu_re = urllib.request.Request(baidu_url, data, headers=headers)
     baidu_response = urllib.request.urlopen(baidu_re)
     baidu_html = baidu_response.read().decode('utf-8')
     target2 = json.loads(baidu_html)
 
-    trans = target2['trans']
+    trans = target2['trans_result']['data'][0]['dst']
     ret = ''
     for i in range(len(trans)):
         ret += trans[i]['dst'] + '\n'
@@ -57,6 +61,35 @@ def baidu_translate(content,type=1):
         return (True,ret)
     else:
         return (False,ret)
+
+
+    #baidu_url = 'http://fanyi.baidu.com/basetrans'
+    #data = {}
+
+    #data['from'] = 'en'
+    #data['to'] = 'zh'
+    #data['query'] = content
+    #data['transtype'] = 'translang'
+    #data['simple_means_flag'] = '3'
+    #data['sign'] = '94582.365127'
+    #data['token'] = 'ec980ef090b173ebdff2eea5ffd9a778'
+    #data = urllib.parse.urlencode(data).encode('utf-8')
+
+    #headers = {"User-Agent":"Mozilla/5.0 (Linux; Android 5.1.1; Nexus 6 Build/LYZ28E) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Mobile Safari/537.36"}
+    #baidu_re = urllib.request.Request(baidu_url, data, headers)
+    #baidu_response = urllib.request.urlopen(baidu_re)
+    #baidu_html = baidu_response.read().decode('utf-8')
+    #target2 = json.loads(baidu_html)
+
+    #trans = target2['trans']
+    #ret = ''
+    #for i in range(len(trans)):
+    #    ret += trans[i]['dst'] + '\n'
+
+    #if ret:
+    #    return (True,ret)
+    #else:
+    #    return (False,ret)
 
 
 # 有道翻译方法
@@ -158,7 +191,7 @@ def google_translate(content):
 def translate_func(content):
     '''集成百度、谷歌、有道多合一的翻译'''
 
-    funcs = [baidu_translate,google_translate,youdao_translate]
+    funcs = [google_translate, youdao_translate]    # baidu_translate,google_translate,youdao_translate
     count = 0
 
     # 循环调用百度、谷歌、有道API，其中如果谁调成功就返回，或者大于等于9次没有成功也返回。
