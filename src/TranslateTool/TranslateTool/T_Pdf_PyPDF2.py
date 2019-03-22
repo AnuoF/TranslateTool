@@ -14,7 +14,7 @@
  
 @Time    :   June 23,2018
  
-@Desc    :   此模块实现.pdf文档的翻译功能，读取PDF文档，并讲内容翻译，写入txt文档。
+@Desc    :   此模块实现.pdf文档的翻译功能，读取PDF文档，并将内容翻译，写入txt文档。
  
 '''
 
@@ -30,7 +30,7 @@ class PdfTranslagePyPDF2(Translate):
     '''PDF文档翻译模块'''
 
     def __init__(self, fileName, fullPath):
-        '''构造含税'''
+        '''构造函数'''
         # fileName:文件名
         # fullPath:全路径
 

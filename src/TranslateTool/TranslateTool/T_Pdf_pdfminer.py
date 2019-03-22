@@ -37,7 +37,7 @@ class PdfTranslate(Translate):
     '''PDF文档翻译模块'''
 
     def __init__(self, fileName, fullPath):
-        '''构造含税'''
+        '''构造函数'''
         # fileName:文件名
         # fullPath:全路径
 
@@ -89,7 +89,8 @@ class PdfTranslate(Translate):
                     if isinstance(out,LTTextBoxHorizontal):
                         content = out.get_text().strip()
                         if content:
-                            ret = translate_func(content)
+                            to_trans_content = content.replace("\r\n","")
+                            ret = translate_func(to_trans_content)
                             trans = ret if ret else '翻译失败'
 
                             self.write(content)
