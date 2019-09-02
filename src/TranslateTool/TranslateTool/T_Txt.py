@@ -66,6 +66,14 @@ class TxtTranslate(Translate):
 
             line = f.readline()
 
+        if temp_line:  # 防止拼接之后，有一部分未执行翻译
+            ret = translate_func(temp_line)
+            trans = ret if ret else '翻译失败'
+            self.write(temp_line)
+            self.write(trans + '\n')
+            i += 1
+            print(i,end=' ',flush=True)
+
         f.close()
         Logger().write(self.fileName + '翻译完成，新文档：' + self.new_path)
 

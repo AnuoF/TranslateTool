@@ -25,8 +25,8 @@ from TranslateFunc import *
 import os
 import time
 
-# 安装指令：pip install pdfminer3k
-from pdfminer.pdfparser import PDFParser,PDFDocument
+# 安装指令：pip install PyExecJS
+from pdfminer.pdfparser import PDFParser,PDFDocument   # pip install pdfminer3k
 from pdfminer.pdfinterp import PDFResourceManager,PDFPageInterpreter
 from pdfminer.layout import LAParams,LTTextBoxHorizontal
 from pdfminer.converter import PDFPageAggregator
